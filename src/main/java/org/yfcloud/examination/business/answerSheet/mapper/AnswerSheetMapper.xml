@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.yfcloud.examination.business.answerSheet.dao.AnswerSheetMapper" >
+  <resultMap id="BaseResultMap" type="org.yfcloud.examination.business.answerSheet.model.AnswerSheet" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="answer_name" property="answerName" jdbcType="VARCHAR" />
+    <result column="paper_id" property="paperId" jdbcType="VARCHAR" />
+    <result column="questions_id" property="questionsId" jdbcType="VARCHAR" />
+    <result column="is_correct" property="isCorrect" jdbcType="VARCHAR" />
+    <result column="examinee_answer" property="examineeAnswer" jdbcType="VARCHAR" />
+    <result column="total_score" property="totalScore" jdbcType="INTEGER" />
+    <result column="create_user_id" property="createUserId" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="state" property="state" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, answer_name, paper_id, questions_id, is_correct, examinee_answer, total_score, 
+    create_user_id, create_date, state
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_answer_sheet
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from tb_answer_sheet
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="org.yfcloud.examination.business.answerSheet.model.AnswerSheet" >
+    insert into tb_answer_sheet (id, answer_name, paper_id, 
+      questions_id, is_correct, examinee_answer, 
+      total_score, create_user_id, create_date, 
+      state)
+    values (#{id,jdbcType=VARCHAR}, #{answerName,jdbcType=VARCHAR}, #{paperId,jdbcType=VARCHAR}, 
+      #{questionsId,jdbcType=VARCHAR}, #{isCorrect,jdbcType=VARCHAR}, #{examineeAnswer,jdbcType=VARCHAR}, 
+      #{totalScore,jdbcType=INTEGER}, #{createUserId,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, 
+      #{state,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="org.yfcloud.examination.business.answerSheet.model.AnswerSheet" >
+    insert into tb_answer_sheet
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="answerName != null" >
+        answer_name,
+      </if>
+      <if test="paperId != null" >
+        paper_id,
+      </if>
+      <if test="questionsId != null" >
+        questions_id,
+      </if>
+      <if test="isCorrect != null" >
+        is_correct,
+      </if>
+      <if test="examineeAnswer != null" >
+        examinee_answer,
+      </if>
+      <if test="totalScore != null" >
+        total_score,
+      </if>
+      <if test="createUserId != null" >
+        create_user_id,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="answerName != null" >
+        #{answerName,jdbcType=VARCHAR},
+      </if>
+      <if test="paperId != null" >
+        #{paperId,jdbcType=VARCHAR},
+      </if>
+      <if test="questionsId != null" >
+        #{questionsId,jdbcType=VARCHAR},
+      </if>
+      <if test="isCorrect != null" >
+        #{isCorrect,jdbcType=VARCHAR},
+      </if>
+      <if test="examineeAnswer != null" >
+        #{examineeAnswer,jdbcType=VARCHAR},
+      </if>
+      <if test="totalScore != null" >
+        #{totalScore,jdbcType=INTEGER},
+      </if>
+      <if test="createUserId != null" >
+        #{createUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.yfcloud.examination.business.answerSheet.model.AnswerSheet" >
+    update tb_answer_sheet
+    <set >
+      <if test="answerName != null" >
+        answer_name = #{answerName,jdbcType=VARCHAR},
+      </if>
+      <if test="paperId != null" >
+        paper_id = #{paperId,jdbcType=VARCHAR},
+      </if>
+      <if test="questionsId != null" >
+        questions_id = #{questionsId,jdbcType=VARCHAR},
+      </if>
+      <if test="isCorrect != null" >
+        is_correct = #{isCorrect,jdbcType=VARCHAR},
+      </if>
+      <if test="examineeAnswer != null" >
+        examinee_answer = #{examineeAnswer,jdbcType=VARCHAR},
+      </if>
+      <if test="totalScore != null" >
+        total_score = #{totalScore,jdbcType=INTEGER},
+      </if>
+      <if test="createUserId != null" >
+        create_user_id = #{createUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.yfcloud.examination.business.answerSheet.model.AnswerSheet" >
+    update tb_answer_sheet
+    set answer_name = #{answerName,jdbcType=VARCHAR},
+      paper_id = #{paperId,jdbcType=VARCHAR},
+      questions_id = #{questionsId,jdbcType=VARCHAR},
+      is_correct = #{isCorrect,jdbcType=VARCHAR},
+      examinee_answer = #{examineeAnswer,jdbcType=VARCHAR},
+      total_score = #{totalScore,jdbcType=INTEGER},
+      create_user_id = #{createUserId,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      state = #{state,jdbcType=INTEGER}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+  <select id="getAnswerIsCorrect"  parameterType="org.yfcloud.examination.business.answerSheet.model.AnswerSheet"  resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from tb_answer_sheet
+    where questions_id = #{answerQuestionsId,jdbcType=VARCHAR} AND  ISNULL(is_correct)
+  </select>
+
+
+  <update id="saveAnswerScore" parameterType="org.yfcloud.examination.business.answerSheet.model.AnswerSheet" >
+    update tb_answer_sheet
+    set  total_score = #{0}
+    where questions_id = #{1}
+  </update>
+
+
+  <select id="getList"  parameterType="org.yfcloud.examination.business.answerSheet.model.AnswerSheet"  resultMap="BaseResultMap">
+    select   ans.answer_name,sum(total_score) AS total_score,pap.time AS create_date
+    from tb_answer_sheet  ans  LEFT JOIN  tb_paper pap  ON ans.paper_id=pap.id  GROUP  BY answer_name
+    <where>
+      <if test="answer_name != null" >
+        and answer_name = #{answerName,jdbcType=VARCHAR},
+      </if>
+    </where>
+    limit #{start,jdbcType=INTEGER},#{rows,jdbcType=INTEGER}
+  </select>
+
+
+  <select id="getCount"  parameterType="org.yfcloud.examination.business.answerSheet.model.AnswerSheet"  resultType="java.lang.Integer">
+   select count(DISTINCT answer_name )
+    from tb_answer_sheet
+    <where>
+      <if test="answer_name != null" >
+        and answer_name = #{answerName,jdbcType=VARCHAR},
+      </if>
+    </where>
+  </select>
+
+
+  <select id="getAnswerSheetList"  parameterType="org.yfcloud.examination.business.answerSheet.model.AnswerSheet"  resultMap="BaseResultMap">
+    select   ans.answer_name,sum(total_score) AS total_score,pap.time
+    from tb_answer_sheet  ans  LEFT JOIN  tb_paper pap  ON ans.paper_id=pap.id  GROUP  BY answer_name
+  </select>
+
+  <select id="getPoorList"  parameterType="org.yfcloud.examination.business.answerSheet.model.AnswerSheet"  resultMap="BaseResultMap">
+       SELECT  * FROM (select   ans.answer_name,sum(total_score) AS total_score,pap.time AS create_date
+    from tb_answer_sheet  ans  LEFT JOIN  tb_paper pap  ON ans.paper_id=pap.id  GROUP  BY answer_name)
+    a where a.total_score &lt;60
+  </select>
+
+  <select id="getDifferenceList"  parameterType="org.yfcloud.examination.business.answerSheet.model.AnswerSheet"  resultMap="BaseResultMap">
+    SELECT  * FROM (select   ans.answer_name,sum(total_score) AS total_score,pap.time AS create_date
+    from tb_answer_sheet  ans  LEFT JOIN  tb_paper pap  ON ans.paper_id=pap.id  GROUP  BY answer_name)
+    a where a.total_score &gt;=60 AND a.total_score &lt;=70
+  </select>
+
+  <select id="getSecondaryList"  parameterType="org.yfcloud.examination.business.answerSheet.model.AnswerSheet"  resultMap="BaseResultMap">
+    SELECT  * FROM (select   ans.answer_name,sum(total_score) AS total_score,pap.time AS create_date
+    from tb_answer_sheet  ans  LEFT JOIN  tb_paper pap  ON ans.paper_id=pap.id  GROUP  BY answer_name)
+    a where a.total_score &gt;=71 AND a.total_score &lt;=79
+  </select>
+
+
+  <select id="getGoodList"  parameterType="org.yfcloud.examination.business.answerSheet.model.AnswerSheet"  resultMap="BaseResultMap">
+    SELECT  * FROM (select   ans.answer_name,sum(total_score) AS total_score,pap.time AS create_date
+    from tb_answer_sheet  ans  LEFT JOIN  tb_paper pap  ON ans.paper_id=pap.id  GROUP  BY answer_name)
+    a where a.total_score &gt;=80 AND a.total_score &lt;=90
+  </select>
+
+  <select id="getExcellent"  parameterType="org.yfcloud.examination.business.answerSheet.model.AnswerSheet"  resultMap="BaseResultMap">
+    SELECT  * FROM (select   ans.answer_name,sum(total_score) AS total_score,pap.time AS create_date
+    from tb_answer_sheet  ans  LEFT JOIN  tb_paper pap  ON ans.paper_id=pap.id  GROUP  BY answer_name)
+    a where a.total_score &gt;=91 AND a.total_score &lt;=100
+  </select>
+
+
+  <select id="getAnswerSheetLists"  parameterType="org.yfcloud.examination.business.answerSheet.model.AnswerSheet"  resultMap="BaseResultMap">
+    SELECT  * FROM (select  ans.answer_name,sum(total_score) AS total_score,pap.time AS create_date
+    from tb_answer_sheet  ans  LEFT JOIN  tb_paper pap  ON ans.paper_id=pap.id  GROUP  BY answer_name)
+    a where a.create_date &gt;= #{0} AND a.create_date &lt;= #{1}
+  </select>
+
+</mapper>

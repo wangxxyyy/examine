@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.yfcloud.examination.business.answer.dao.AnswerMapper" >
+  <resultMap id="BaseResultMap" type="org.yfcloud.examination.business.answer.model.Answer" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="questions_id" property="questionsId" jdbcType="VARCHAR" />
+    <result column="options" property="options" jdbcType="VARCHAR" />
+    <result column="optinos_content" property="optinosContent" jdbcType="VARCHAR" />
+    <result column="is_correct" property="isCorrect" jdbcType="VARCHAR" />
+    <result column="create_user_id" property="createUserId" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, questions_id, options, optinos_content, is_correct, create_user_id, create_date
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_answer
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from tb_answer
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="org.yfcloud.examination.business.answer.model.Answer" >
+    insert into tb_answer (id, questions_id, options, 
+      optinos_content, is_correct, create_user_id, 
+      create_date)
+    values (#{id,jdbcType=VARCHAR}, #{questionsId,jdbcType=VARCHAR}, #{options,jdbcType=VARCHAR}, 
+      #{optinosContent,jdbcType=VARCHAR}, #{isCorrect,jdbcType=VARCHAR}, #{createUserId,jdbcType=VARCHAR},
+      #{createDate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="org.yfcloud.examination.business.answer.model.Answer" >
+    insert into tb_answer
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="questionsId != null" >
+        questions_id,
+      </if>
+      <if test="options != null" >
+        options,
+      </if>
+      <if test="optinosContent != null" >
+        optinos_content,
+      </if>
+      <if test="isCorrect != null" >
+        is_correct,
+      </if>
+      <if test="createUserId != null" >
+        create_user_id,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="questionsId != null" >
+        #{questionsId,jdbcType=VARCHAR},
+      </if>
+      <if test="options != null" >
+        #{options,jdbcType=VARCHAR},
+      </if>
+      <if test="optinosContent != null" >
+        #{optinosContent,jdbcType=VARCHAR},
+      </if>
+      <if test="isCorrect != null" >
+        #{isCorrect,jdbcType=VARCHAR},
+      </if>
+      <if test="createUserId != null" >
+        #{createUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.yfcloud.examination.business.answer.model.Answer" >
+    update tb_answer
+    <set >
+      <if test="questionsId != null" >
+        questions_id = #{questionsId,jdbcType=VARCHAR},
+      </if>
+      <if test="options != null" >
+        options = #{options,jdbcType=VARCHAR},
+      </if>
+      <if test="optinosContent != null" >
+        optinos_content = #{optinosContent,jdbcType=VARCHAR},
+      </if>
+      <if test="isCorrect != null" >
+        is_correct = #{isCorrect,jdbcType=VARCHAR},
+      </if>
+      <if test="createUserId != null" >
+        create_user_id = #{createUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.yfcloud.examination.business.answer.model.Answer" >
+    update tb_answer
+    set questions_id = #{questionsId,jdbcType=VARCHAR},
+      options = #{options,jdbcType=VARCHAR},
+      optinos_content = #{optinosContent,jdbcType=VARCHAR},
+      is_correct = #{isCorrect,jdbcType=VARCHAR},
+      create_user_id = #{createUserId,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+  <select id="getByQuestionsId" parameterType="org.yfcloud.examination.business.answer.model.Answer" resultMap="BaseResultMap">
+    select *
+    from tb_answer where questions_id = #{id,jdbcType=VARCHAR}
+  </select>
+
+  <select id="getByUserId" parameterType="org.yfcloud.examination.business.answer.model.Answer" resultMap="BaseResultMap">
+    select *
+    from tb_questions tq LEFT JOIN  tb_answer tb  ON tq.id =  tb.questions_id  where id = #{id,jdbcType=VARCHAR}
+  </select>
+
+  <select id="deleteById" parameterType="org.yfcloud.examination.business.answer.model.Answer" resultMap="BaseResultMap">
+    DELETE
+    from tb_answer where questions_id = #{id,jdbcType=VARCHAR}
+  </select>
+
+  <delete id="deleteAnwerById" parameterType="java.lang.String" >
+    delete from tb_answer
+    where questions_id = #{questionId,jdbcType=VARCHAR}
+  </delete>
+
+  <select id="getListByQuestionsId"  parameterType="org.yfcloud.examination.business.answer.model.Answer"   resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from tb_answer
+    where id = #{paperQuedtionsId,jdbcType=VARCHAR}
+  </select>
+
+
+
+  <select id="getAnswerByquestinosId"  parameterType="org.yfcloud.examination.business.answer.model.Answer"   resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from tb_answer
+    where questions_id = #{quetisonId,jdbcType=VARCHAR} AND is_correct = '1';
+  </select>
+
+
+  <select id="getRadioAnswerByquestinosId"  parameterType="org.yfcloud.examination.business.answer.model.Answer"   resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from tb_answer
+    where questions_id = #{quetisonId,jdbcType=VARCHAR} AND is_correct = '1';
+  </select>
+
+</mapper>

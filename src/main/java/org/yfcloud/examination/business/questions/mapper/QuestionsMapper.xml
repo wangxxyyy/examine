@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.yfcloud.examination.business.questions.dao.QuestionsMapper" >
+  <resultMap id="BaseResultMap" type="org.yfcloud.examination.business.questions.model.Questions" >
+  <id column="id" property="id" jdbcType="VARCHAR" />
+  <result column="item_number" property="itemNumber" jdbcType="INTEGER" />
+  <result column="questions_type" property="questionsType" jdbcType="INTEGER" />
+  <result column="test_content" property="testContent" jdbcType="VARCHAR" />
+  <result column="title" property="title" jdbcType="VARCHAR" />
+  <result column="subject" property="subject" jdbcType="VARCHAR" />
+  <result column="item_difficulty" property="itemDifficulty" jdbcType="VARCHAR" />
+  <result column="right_key" property="rightKey" jdbcType="VARCHAR" />
+  <result column="creat_user_id" property="creatUserId" jdbcType="VARCHAR" />
+  <result column="state" property="state" jdbcType="INTEGER" />
+  <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+</resultMap>
+
+  <resultMap id="BaseResultMap1" type="org.yfcloud.examination.business.questions.model.Questions" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="item_number" property="itemNumber" jdbcType="INTEGER" />
+    <result column="questions_type" property="questionsType" jdbcType="INTEGER" />
+    <result column="test_content" property="testContent" jdbcType="VARCHAR" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="subject" property="subject" jdbcType="VARCHAR" />
+    <result column="item_difficulty" property="itemDifficulty" jdbcType="VARCHAR" />
+    <result column="creat_user_id" property="creatUserId" jdbcType="VARCHAR" />
+    <result column="state" property="state" jdbcType="INTEGER" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+
+
+    <collection property="answer" ofType="org.yfcloud.examination.business.answer.model.Answer" column="questions_id">
+      <id column="answer_id" property="id" jdbcType="VARCHAR" />
+      <result column="questions_id" property="questionsId" jdbcType="VARCHAR" />
+      <result column="options" property="options" jdbcType="VARCHAR" />
+      <result column="optinos_content" property="optinosContent" jdbcType="VARCHAR" />
+      <result column="is_correct" property="isCorrect" jdbcType="VARCHAR" />
+      <result column="create_user_id" property="createUserId" jdbcType="VARCHAR" />
+      <result column="answer_create_date" property="createDate" jdbcType="TIMESTAMP" />
+    </collection>
+  </resultMap>
+
+
+  <sql id="Base_Column_List" >
+    id, item_number, test_content, subject, item_difficulty,
+     creat_user_id, state, create_date,title,questions_type
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_questions
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from tb_questions
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="org.yfcloud.examination.business.questions.model.Questions" >
+    insert into tb_questions (id, item_number, test_content, 
+      subject, item_difficulty,
+      creat_user_id, state, create_date,questions_type,title
+      )
+    values (#{id,jdbcType=VARCHAR}, #{itemNumber,jdbcType=INTEGER}, #{testContent,jdbcType=VARCHAR}, 
+      #{subject,jdbcType=VARCHAR}, #{itemDifficulty,jdbcType=VARCHAR},
+      #{creatUserId,jdbcType=VARCHAR}, #{state,jdbcType=INTEGER}, #{createDate,jdbcType=TIMESTAMP},#{questionsType,jdbcType=INTEGER},
+      #{title,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="org.yfcloud.examination.business.questions.model.Questions" >
+    insert into tb_questions
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="itemNumber != null" >
+        item_number,
+      </if>
+      <if test="questionsType != null" >
+        questions_type,
+      </if>
+      <if test="testContent != null" >
+        test_content,
+      </if>
+      <if test="subject != null" >
+        subject,
+      </if>
+      <if test="itemDifficulty != null" >
+        item_difficulty,
+      </if>
+      <if test="creatUserId != null" >
+        creat_user_id,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="itemNumber != null" >
+        #{itemNumber,jdbcType=INTEGER},
+      </if>
+      <if test="questionsType != null" >
+        #{questionsType,jdbcType=INTEGER},
+      </if>
+      <if test="testContent != null" >
+        #{testContent,jdbcType=VARCHAR},
+      </if>
+      <if test="subject != null" >
+        #{subject,jdbcType=VARCHAR},
+      </if>
+      <if test="itemDifficulty != null" >
+        #{itemDifficulty,jdbcType=VARCHAR},
+      </if>
+      <if test="creatUserId != null" >
+        #{creatUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.yfcloud.examination.business.questions.model.Questions" >
+    update tb_questions
+    <set >
+      <if test="itemNumber != null" >
+        item_number = #{itemNumber,jdbcType=INTEGER},
+      </if>
+      <if test="questionsType != null" >
+        questions_type = #{questionsType,jdbcType=INTEGER},
+      </if>
+      <if test="testContent != null" >
+        test_content = #{testContent,jdbcType=VARCHAR},
+      </if>
+      <if test="subject != null" >
+        subject = #{subject,jdbcType=VARCHAR},
+      </if>
+      <if test="itemDifficulty != null" >
+        item_difficulty = #{itemDifficulty,jdbcType=VARCHAR},
+      </if>
+      <if test="creatUserId != null" >
+        creat_user_id = #{creatUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.yfcloud.examination.business.questions.model.Questions" >
+    update tb_questions
+    set item_number = #{itemNumber,jdbcType=INTEGER},
+      questions_type = #{questions_Type,jdbcType=INTEGER},
+      test_content = #{testContent,jdbcType=VARCHAR},
+      subject = #{subject,jdbcType=VARCHAR},
+      item_difficulty = #{itemDifficulty,jdbcType=VARCHAR},
+      creat_user_id = #{creatUserId,jdbcType=VARCHAR},
+      state = #{state,jdbcType=INTEGER},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      title = #{title,jdbcType=VARCHAR},
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+  <select id="getByUsersId"  parameterType="java.lang.String"  resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from tb_questions
+    where creat_user_id = #{id,jdbcType=VARCHAR}
+  </select>
+
+
+<!--  <select id="getByUserId"   parameterType="java.lang.String" resultMap="BaseResultMap1">
+
+    SELECT question.*,answer.id as answer_id,answer.questions_id,answer.options,
+     answer.optinos_content,answer.is_correct,answer.create_user_id,answer.create_date as answer_create_date
+     FROM tb_questions question LEFT JOIN tb_answer answer ON question.id=answer.questions_id
+     where creat_user_id = #{id,jdbcType=VARCHAR}
+  </select>-->
+
+  <select id="getByQuestionsId"   parameterType="java.lang.String" resultMap="BaseResultMap1">
+     SELECT question.*,answer.id as answer_id,answer.questions_id,answer.options,
+     answer.optinos_content,answer.is_correct,answer.create_user_id,answer.create_date as answer_create_date
+     FROM tb_questions question LEFT JOIN tb_answer answer ON question.id=answer.questions_id
+     where question.questions_type = '0' AND question.id = #{questionId,jdbcType=VARCHAR} ORDER BY options
+  </select>
+<!--
+直接配置时要写两个方法
+  <select id="getAnswer" parameterType="java.lang.String"  resultType="org.yfcloud.examination.business.answer.model.Answer">
+    SELECT answer.* FROM tb_answer answer
+    where questions_id = #{id,jdbcType=VARCHAR}
+  </select>
+-->
+
+  <select id="getByItemNumber" parameterType="java.lang.String" resultMap="BaseResultMap1">
+    select * questions.*,answer.id ons_content,answer.is_correct,answer.create_user_id,answer.create_date as answer_create_date
+    FROM tb_questions question LEFT JOIN tb_answer answer ON question.id=answer.questions_id
+    <where>
+    <if test="itemNumber != null" >
+      item_number = #{itemNumber,jdbcType=INTEGER},
+    </if>AS answer_id,answer.questions_id,answer.options,
+    answer.opti
+      <if test="testContent != null" >
+        and testContent = #{testConent,jdbcType=VARCHAR},
+      </if>
+    </where>
+  </select>
+
+  <delete id="deleteQuestionsById" parameterType="java.lang.String" >
+    delete from tb_questions
+    where id = #{questionId,jdbcType=VARCHAR}
+  </delete>
+
+  <select id="getListByQuestionsId"  parameterType="org.yfcloud.examination.business.questions.model.Questions"  resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from tb_questions
+    where id = #{paperQuedtionsId,jdbcType=VARCHAR}
+  </select>
+
+
+  <select id="getAnswerById"   parameterType="java.lang.String" resultMap="BaseResultMap1">
+    SELECT question.*,answer.id as answer_id,answer.questions_id,answer.options,
+    answer.optinos_content,answer.is_correct,answer.create_user_id,answer.create_date as answer_create_date
+    FROM tb_questions question LEFT JOIN tb_answer answer ON question.id=answer.questions_id
+    where question.questions_type = '1' AND question.id = #{questionId,jdbcType=VARCHAR} ORDER BY options
+
+  </select>
+
+  <select id="getCheckboxById"   parameterType="java.lang.String" resultMap="BaseResultMap1">
+    SELECT question.*,answer.id as answer_id,answer.questions_id,answer.options,
+    answer.optinos_content,answer.is_correct,answer.create_user_id,answer.create_date as answer_create_date
+    FROM tb_questions question LEFT JOIN tb_answer answer ON question.id=answer.questions_id
+    where question.questions_type = '2' AND question.id = #{questionId,jdbcType=VARCHAR} ORDER BY options
+  </select>
+
+
+  <!--添加试卷查出单选题-->
+  <select id="getRadioList"  parameterType="org.yfcloud.examination.business.questions.model.Questions"  resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from tb_questions
+    where questions_type = "0"
+  </select>
+
+
+  <!--添加试卷查出多选题-->
+  <select id="getCheckboxList"  parameterType="org.yfcloud.examination.business.questions.model.Questions"  resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from tb_questions
+    where questions_type = "2"
+  </select>
+
+
+<!--添加试卷查出解答题-->
+  <select id="getAnswerList"  parameterType="org.yfcloud.examination.business.questions.model.Questions"  resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from tb_questions
+    where questions_type = "1"
+  </select>
+
+
+  <!--添加试卷试题-->
+  <select id="getQuestionByType"  parameterType="org.yfcloud.examination.business.questions.model.Questions"  resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from tb_questions
+    where  questions_type = #{type,jdbcType=INTEGER}
+  </select>
+
+
+  <!--定时器随机查出单选题-->
+  <select id="getRadioQuestionId"  parameterType="org.yfcloud.examination.business.questions.model.Questions"  resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from tb_questions
+    where questions_type = "0" ORDER BY RAND() limit 3
+  </select>
+
+  <!--定时器随机查出多选题-->
+  <select id="getCheckboxQuestionId"  parameterType="org.yfcloud.examination.business.questions.model.Questions"  resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from tb_questions
+    where questions_type = "2" ORDER BY RAND() limit 3
+  </select>
+
+  <!--定时器随机查出解选题-->
+  <select id="getAnswerQuestionId"  parameterType="org.yfcloud.examination.business.questions.model.Questions"  resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from tb_questions
+    where questions_type = "1" ORDER BY RAND() limit 2
+  </select>
+</mapper>
+

@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.yfcloud.examination.business.paper.dao.PaperMapper" >
+  <resultMap id="BaseResultMap" type="org.yfcloud.examination.business.paper.model.Paper" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="questions_id" property="questionsId" jdbcType="VARCHAR" />
+    <result column="subject" property="subject" jdbcType="VARCHAR" />
+    <result column="item_diffculty" property="itemDiffculty" jdbcType="VARCHAR" />
+    <result column="radio_score" property="radioScore" jdbcType="INTEGER" />
+    <result column="checkbox_score" property="checkboxScore" jdbcType="INTEGER" />
+    <result column="answer_score" property="answerScore" jdbcType="INTEGER" />
+    <result column="radio_number" property="radioNumber" jdbcType="INTEGER" />
+    <result column="checkbox_number" property="checkboxNumber" jdbcType="INTEGER" />
+    <result column="answer_number" property="answerNumber" jdbcType="INTEGER" />
+    <result column="time" property="time" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="create_user_id" property="createUserId" jdbcType="VARCHAR" />
+    <result column="state" property="state" jdbcType="INTEGER" />
+
+    <!--一对多关系:返回是个集合，需要查询的属性“property="questions"”，需要查询用的参数“column="questions_id ”
+       需要通过某种方式去查询的方法select="getQuestions"。这样方式会导致N+1问题-->
+    <!--<collection property="questions" column="questions_id" select="getQuestions"/>-->
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, questions_id, subject, item_diffculty, radio_score, checkbox_score, answer_score, 
+    radio_number, checkbox_number, answer_number, time, create_date, create_user_id, 
+    state
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_paper
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from tb_paper
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="org.yfcloud.examination.business.paper.model.Paper" >
+    insert into tb_paper (id, questions_id, subject, 
+      item_diffculty, radio_score, checkbox_score, 
+      answer_score, radio_number, checkbox_number, 
+      answer_number, time, create_date, 
+      create_user_id, state)
+    values (#{id,jdbcType=VARCHAR}, #{questionsId,jdbcType=VARCHAR}, #{subject,jdbcType=VARCHAR}, 
+      #{itemDiffculty,jdbcType=VARCHAR}, #{radioScore,jdbcType=INTEGER}, #{checkboxScore,jdbcType=INTEGER}, 
+      #{answerScore,jdbcType=INTEGER}, #{radioNumber,jdbcType=INTEGER}, #{checkboxNumber,jdbcType=INTEGER}, 
+      #{answerNumber,jdbcType=INTEGER}, #{time,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, 
+      #{createUserId,jdbcType=VARCHAR}, #{state,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="org.yfcloud.examination.business.paper.model.Paper" >
+    insert into tb_paper
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="questionsId != null" >
+        questions_id,
+      </if>
+      <if test="subject != null" >
+        subject,
+      </if>
+      <if test="itemDiffculty != null" >
+        item_diffculty,
+      </if>
+      <if test="radioScore != null" >
+        radio_score,
+      </if>
+      <if test="checkboxScore != null" >
+        checkbox_score,
+      </if>
+      <if test="answerScore != null" >
+        answer_score,
+      </if>
+      <if test="radioNumber != null" >
+        radio_number,
+      </if>
+      <if test="checkboxNumber != null" >
+        checkbox_number,
+      </if>
+      <if test="answerNumber != null" >
+        answer_number,
+      </if>
+      <if test="time != null" >
+        time,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="createUserId != null" >
+        create_user_id,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="questionsId != null" >
+        #{questionsId,jdbcType=VARCHAR},
+      </if>
+      <if test="subject != null" >
+        #{subject,jdbcType=VARCHAR},
+      </if>
+      <if test="itemDiffculty != null" >
+        #{itemDiffculty,jdbcType=VARCHAR},
+      </if>
+      <if test="radioScore != null" >
+        #{radioScore,jdbcType=INTEGER},
+      </if>
+      <if test="checkboxScore != null" >
+        #{checkboxScore,jdbcType=INTEGER},
+      </if>
+      <if test="answerScore != null" >
+        #{answerScore,jdbcType=INTEGER},
+      </if>
+      <if test="radioNumber != null" >
+        #{radioNumber,jdbcType=INTEGER},
+      </if>
+      <if test="checkboxNumber != null" >
+        #{checkboxNumber,jdbcType=INTEGER},
+      </if>
+      <if test="answerNumber != null" >
+        #{answerNumber,jdbcType=INTEGER},
+      </if>
+      <if test="time != null" >
+        #{time,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUserId != null" >
+        #{createUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.yfcloud.examination.business.paper.model.Paper" >
+    update tb_paper
+    <set >
+      <if test="questionsId != null" >
+        questions_id = #{questionsId,jdbcType=VARCHAR},
+      </if>
+      <if test="subject != null" >
+        subject = #{subject,jdbcType=VARCHAR},
+      </if>
+      <if test="itemDiffculty != null" >
+        item_diffculty = #{itemDiffculty,jdbcType=VARCHAR},
+      </if>
+      <if test="radioScore != null" >
+        radio_score = #{radioScore,jdbcType=INTEGER},
+      </if>
+      <if test="checkboxScore != null" >
+        checkbox_score = #{checkboxScore,jdbcType=INTEGER},
+      </if>
+      <if test="answerScore != null" >
+        answer_score = #{answerScore,jdbcType=INTEGER},
+      </if>
+      <if test="radioNumber != null" >
+        radio_number = #{radioNumber,jdbcType=INTEGER},
+      </if>
+      <if test="checkboxNumber != null" >
+        checkbox_number = #{checkboxNumber,jdbcType=INTEGER},
+      </if>
+      <if test="answerNumber != null" >
+        answer_number = #{answerNumber,jdbcType=INTEGER},
+      </if>
+      <if test="time != null" >
+        time = #{time,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUserId != null" >
+        create_user_id = #{createUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.yfcloud.examination.business.paper.model.Paper" >
+    update tb_paper
+    set questions_id = #{questionsId,jdbcType=VARCHAR},
+      subject = #{subject,jdbcType=VARCHAR},
+      item_diffculty = #{itemDiffculty,jdbcType=VARCHAR},
+      radio_score = #{radioScore,jdbcType=INTEGER},
+      checkbox_score = #{checkboxScore,jdbcType=INTEGER},
+      answer_score = #{answerScore,jdbcType=INTEGER},
+      radio_number = #{radioNumber,jdbcType=INTEGER},
+      checkbox_number = #{checkboxNumber,jdbcType=INTEGER},
+      answer_number = #{answerNumber,jdbcType=INTEGER},
+      time = #{time,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      create_user_id = #{createUserId,jdbcType=VARCHAR},
+      state = #{state,jdbcType=INTEGER}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+  <select id="getCount" parameterType="org.yfcloud.examination.business.paper.model.Paper" resultType="java.lang.Integer">
+    select count(*)
+    from tb_paper WHERE
+    subject = #{subject,jdbcType=VARCHAR}
+  </select>
+
+  <select id="getList" parameterType="org.yfcloud.examination.business.paper.model.Paper" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" />
+    from tb_paper
+    where  subject = #{subject,jdbcType=VARCHAR}
+  </select>
+
+  <select id="getPaper" parameterType="org.yfcloud.examination.business.paper.model.Paper" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" />
+    from tb_paper
+    order by create_date DESC LIMIT 1
+  </select>
+
+
+  <select id="list" parameterType="org.yfcloud.examination.business.paper.model.Paper" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" />
+    from tb_paper
+  </select>
+
+  <select id="getPapers" parameterType="org.yfcloud.examination.business.paper.model.Paper" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" />
+    from tb_paper WHERE subject = #{name,jdbcType=VARCHAR}
+  </select>
+</mapper>
