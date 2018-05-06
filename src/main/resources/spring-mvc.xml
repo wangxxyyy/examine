@@ -11,7 +11,7 @@
        http://www.springframework.org/schema/mvc
        http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
 	<!-- 启用spring mvc 注解 -->
-    <context:annotation-config />
+    <context:annotation-config/>
     
 	<!-- 把标记了@Controller注解的类转换为bean -->
 	<context:component-scan base-package="org.yfcloud.examination.**.controller" />
@@ -48,11 +48,6 @@
 		<!-- 指定所上传文件的总大小,单位字节。注意maxUploadSize属性的限制不是针对单个文件，而是所有文件的容量之和 -->
 		<property name="maxUploadSize" value="10240000" />
 	</bean>
-
-
-
-
-
 	<!-- 调度工厂 -->
 	<bean id="scheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
 		<property name="triggers">
