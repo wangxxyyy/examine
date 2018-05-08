@@ -15,7 +15,7 @@ import javax.servlet.http.HttpSession;
  * Created by Administrator on 2017/3/17 0017.
  */
 @Controller
-@RequestMapping("/user")
+@RequestMapping("/Mser")
 public class UserController {
 
     @Resource
